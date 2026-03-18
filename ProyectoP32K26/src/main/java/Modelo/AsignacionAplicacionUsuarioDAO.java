@@ -8,21 +8,21 @@ import Controlador.AsignacionAplicacionUsuario;
 
 public class AsignacionAplicacionUsuarioDAO {
 
-    // CONSULTAS SQL
+    // CONSULTAS SQL 
     private static final String SQL_SELECT =
-            "SELECT usucodigo, aplcodigo, apluins, aplusel, apluupd, aplurep FROM asignacionaplicacionusuario";
+            "SELECT Usucodigo, Aplcodigo, APLUins, APLUsel, APLUupd, APLUdel, APLUrep FROM asignacionaplicacionusuarios";
 
     private static final String SQL_INSERT =
-            "INSERT INTO asignacionaplicacionusuario(usucodigo, aplcodigo, apluins, aplusel, apluupd, aplurep) VALUES(?,?,?,?,?,?)";
+            "INSERT INTO asignacionaplicacionusuarios(Usucodigo, Aplcodigo, APLUins, APLUsel, APLUupd, APLUdel, APLUrep) VALUES(?,?,?,?,?,?,?)";
 
     private static final String SQL_UPDATE =
-            "UPDATE asignacionaplicacionusuario SET apluins=?, aplusel=?, apluupd=?, aplurep=? WHERE usucodigo=? AND aplcodigo=?";
+            "UPDATE asignacionaplicacionusuarios SET APLUins=?, APLUsel=?, APLUupd=?, APLUdel=?, APLUrep=? WHERE Usucodigo=? AND Aplcodigo=?";
 
     private static final String SQL_DELETE =
-            "DELETE FROM asignacionaplicacionusuario WHERE usucodigo=? AND aplcodigo=?";
+            "DELETE FROM asignacionaplicacionusuarios WHERE Usucodigo=? AND Aplcodigo=?";
 
     private static final String SQL_QUERY =
-            "SELECT usucodigo, aplcodigo, apluins, aplusel, apluupd, aplurep FROM asignacionaplicacionusuario WHERE usucodigo=? AND aplcodigo=?";
+            "SELECT Usucodigo, Aplcodigo, APLUins, APLUsel, APLUupd, APLUdel, APLUrep FROM asignacionaplicacionusuarios WHERE Usucodigo=? AND Aplcodigo=?";
 
 
     // 🔹 SELECT TODOS
@@ -42,12 +42,13 @@ public class AsignacionAplicacionUsuarioDAO {
 
                 AsignacionAplicacionUsuario asignacion = new AsignacionAplicacionUsuario();
 
-                asignacion.setUsucodigo(rs.getInt("usucodigo"));
-                asignacion.setAplcodigo(rs.getInt("aplcodigo"));
-                asignacion.setApluins(rs.getBoolean("apluins"));
-                asignacion.setAplusel(rs.getBoolean("aplusel"));
-                asignacion.setApluupd(rs.getBoolean("apluupd"));
-                asignacion.setAplurep(rs.getBoolean("aplurep"));
+                asignacion.setUsucodigo(rs.getInt("Usucodigo"));
+                asignacion.setAplcodigo(rs.getInt("Aplcodigo"));
+                asignacion.setApluins(rs.getString("APLUins"));
+                asignacion.setAplusel(rs.getString("APLUsel"));
+                asignacion.setApluupd(rs.getString("APLUupd"));
+                asignacion.setApludel(rs.getString("APLUdel"));
+                asignacion.setAplurep(rs.getString("APLUrep"));
 
                 asignaciones.add(asignacion);
             }
@@ -78,10 +79,11 @@ public class AsignacionAplicacionUsuarioDAO {
 
             stmt.setInt(1, asignacion.getUsucodigo());
             stmt.setInt(2, asignacion.getAplcodigo());
-            stmt.setBoolean(3, asignacion.getApluins());
-            stmt.setBoolean(4, asignacion.getAplusel());
-            stmt.setBoolean(5, asignacion.getApluupd());
-            stmt.setBoolean(6, asignacion.getAplurep());
+            stmt.setString(3, asignacion.getApluins());
+            stmt.setString(4, asignacion.getAplusel());
+            stmt.setString(5, asignacion.getApluupd());
+            stmt.setString(6, asignacion.getApludel());
+            stmt.setString(7, asignacion.getAplurep());
 
             rows = stmt.executeUpdate();
 
@@ -108,13 +110,14 @@ public class AsignacionAplicacionUsuarioDAO {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_UPDATE);
 
-            stmt.setBoolean(1, asignacion.getApluins());
-            stmt.setBoolean(2, asignacion.getAplusel());
-            stmt.setBoolean(3, asignacion.getApluupd());
-            stmt.setBoolean(4, asignacion.getAplurep());
+            stmt.setString(1, asignacion.getApluins());
+            stmt.setString(2, asignacion.getAplusel());
+            stmt.setString(3, asignacion.getApluupd());
+            stmt.setString(4, asignacion.getApludel());
+            stmt.setString(5, asignacion.getAplurep());
 
-            stmt.setInt(5, asignacion.getUsucodigo());
-            stmt.setInt(6, asignacion.getAplcodigo());
+            stmt.setInt(6, asignacion.getUsucodigo());
+            stmt.setInt(7, asignacion.getAplcodigo());
 
             rows = stmt.executeUpdate();
 
@@ -176,10 +179,11 @@ public class AsignacionAplicacionUsuarioDAO {
 
             if (rs.next()) {
 
-                asignacion.setApluins(rs.getBoolean("apluins"));
-                asignacion.setAplusel(rs.getBoolean("aplusel"));
-                asignacion.setApluupd(rs.getBoolean("apluupd"));
-                asignacion.setAplurep(rs.getBoolean("aplurep"));
+                asignacion.setApluins(rs.getString("APLUins"));
+                asignacion.setAplusel(rs.getString("APLUsel"));
+                asignacion.setApluupd(rs.getString("APLUupd"));
+                asignacion.setApludel(rs.getString("APLUdel"));
+                asignacion.setAplurep(rs.getString("APLUrep"));
 
             }
 
